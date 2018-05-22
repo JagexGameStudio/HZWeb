@@ -6,7 +6,7 @@
 <div class="container-fluid am-cf">
     <div class="row">
         <div class="am-u-sm-12 am-u-md-12 am-u-lg-9">
-            <div class="page-header-heading"><span class="am-icon-home page-header-heading-icon"></span> 系统菜单 <small>管理</small></div>
+            <div class="page-header-heading"><span class="am-icon-home page-header-heading-icon"></span> 系统菜单 <small><a onclick="add('0')" th:text="添加"></a></small></div>
             <p class="page-header-description">可修改系统的菜单及功能，并标识权限</p>
         </div>
     </div>
@@ -29,6 +29,7 @@
                         </form>
                     </div>
                 </div>
+
                 <div class="am-scrollable-horizontal">
                 <table class="am-table am-table-bordered am-table-striped am-text-nowrap am-table-centered am-table-hover">
                     <thead>

@@ -59,16 +59,6 @@ public class MenuController extends BaseController{
         return "auth/menu/edit";
     }
 
-    @GetMapping("/remove/{id}")
-    @ResponseBody
-    public ReturnMessage remove( @PathVariable("id")Long id) {
-        if (menuService.remove(id) > 0) {
-            return ReturnMessage.ok();
-        } else {
-            return ReturnMessage.error(1, "删除失败");
-        }
-    }
-
     @GetMapping("/add/{pId}")
     public String add(HttpServletRequest request,Model model, @PathVariable("pId") Long pId) {
         model.addAttribute("pId", pId);
@@ -77,7 +67,17 @@ public class MenuController extends BaseController{
         } else {
             model.addAttribute("pName", menuService.get(pId).getName());
         }
-        return "sys/menu/add";
+        return "auth/menu/add";
+    }
+
+    @GetMapping("/remove/{id}")
+    @ResponseBody
+    public ReturnMessage remove( @PathVariable("id")Long id) {
+        if (menuService.remove(id) > 0) {
+            return ReturnMessage.ok();
+        } else {
+            return ReturnMessage.error(1, "删除失败");
+        }
     }
 
 }
