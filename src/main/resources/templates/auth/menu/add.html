@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="/common/common_head :: head('添加菜单')">
+</head>
+<body>
+	<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+		<div class="widget am-cf">
+			<div class="widget-head am-cf">
+				<div class="widget-title am-fl"><span th:text="${'编辑菜单【'+menu.menuId}+'】'"</div>
+			</div>
+			<div class="widget-body am-fr">
+				<form class="am-form" th:action="@{/}" th:method="post">
+					<input id="parentId" name="parentId" type="hidden" th:value="${menu.parentId}" />
+					<input id="menuId" name="menuId" type="hidden" th:value="${menu.menuId}" />
+					<fieldset>
+						<div class="am-form-group">
+							<div class="am-u-sm-9">
+								<label for="doc-vld-name-2-1">上级菜单</label>
+								<input type="text" placeholder="" id="doc-vld-name-2-1" th:value="${pName}"/>
+							</div>
+						</div>
+						<div class="am-form-group">
+							<div class="am-u-sm-9">
+								<br/>
+							</div>
+						</div>
+						<div class="am-form-group">
+							<div class="am-u-sm-9">
+								<label >菜单名称</label>
+								<input type="text" id="name" name="name" placeholder="" />
+							</div>
+						</div>
+						<div class="am-form-group">
+							<div class="am-u-sm-9">
+								<br/>
+							</div>
+						</div>
+						<div class="am-form-group">
+							<div class="am-u-sm-9">
+								<label>菜单类型</label>
+								<label class="am-radio-inline">目录</label>
+								<input type="radio" name="type"  value="0"/>
+								<label class="am-radio-inline">菜单</label>
+								<input type="radio" name="type"  value="1"/>
+								<label class="am-radio-inline">按钮</label>
+								<input type="radio" name="type"  value="2"/>
+							</div>
+						</div>
+						<div class="am-form-group">
+							<div class="am-u-sm-9">
+								<br/>
+							</div>
+						</div>
+						<div class="am-form-group">
+							<div class="am-u-sm-9">
+								<label >链接地址</label>
+								<input type="text" id="url"  name="url" placeholder="" />
+							</div>
+						</div>
+						<div class="am-form-group">
+							<div class="am-u-sm-9">
+								<br/>
+							</div>
+						</div>
+						<div class="am-form-group">
+							<div class="am-u-sm-9">
+								<label >权限标识</label>
+								<input type="text" id="perms"  name="perms" placeholder="" />
+							</div>
+						</div>
+						<div class="am-form-group">
+							<div class="am-u-sm-9">
+								<br/>
+							</div>
+						</div>
+						<div class="am-form-group">
+							<div class="am-u-sm-9">
+								<label >顺序</label>
+								<input type="text" id="orderNum" name="orderNum" placeholder="" />
+							</div>
+						</div>
+						<div class="am-form-group">
+							<div class="am-u-sm-9">
+								<br/>
+							</div>
+						</div>
+						<div class="am-form-group">
+							<div class="am-u-sm-9">
+								<label for="doc-vld-name-2-1">图标</label>
+								<input type="text" id="icon" name="icon" placeholder="" />
+							</div>
+						</div>
+						<div class="am-form-group">
+							<div class="am-u-sm-9">
+								<br/>
+							</div>
+						</div>
+						<div class="am-form-group">
+							<div class="am-u-sm-9">
+								<input type="submit" class="am-btn am-btn-secondary" placeholder="" th:value="提交"/>
+							</div>
+						</div>
+					</fieldset>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

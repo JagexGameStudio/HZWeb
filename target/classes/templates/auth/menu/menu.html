@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="/common/common_head :: head('系统菜单')">
+</head>
+<body data-type="menu">
+<div class="container-fluid am-cf">
+    <div class="row">
+        <div class="am-u-sm-12 am-u-md-12 am-u-lg-9">
+            <div class="page-header-heading"><span class="am-icon-home page-header-heading-icon"></span> 系统菜单 <small>管理</small></div>
+            <p class="page-header-description">可修改系统的菜单及功能，并标识权限</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+            <div class="widget am-cf">
+                <div class="widget-head am-cf">
+                    <div class="am-scrollable-horizontal">
+                        <form th:action="@{/sys/menu}" th:method="post">
+                            <table class="am-table am-table-bordered am-table-striped am-text-nowrap am-table-centered">
+                                <tr>
+                                    <td>上级ID查询:</td>
+                                    <td><input type="text" class="tpl-form-input" name="parentId" th:value="${menuPage.parentId}"></td>
+                                    <td>类型:</td>
+                                    <td><input type="text" class="tpl-form-input" name="type" th:value="${menuPage.type}"></td>
+                                    <td><button class="am-icon-search am-btn am-btn-secondary" type="submit"></button></td>
+                                    <td><a class="fa-times am-btn am-btn-secondary" th:href="@{/sys/menu}" type="submit"></a></td>
+                                </tr>
+                            </table>
+                        </form>
+                    </div>
+                </div>
+                <div class="am-scrollable-horizontal">
+                <table class="am-table am-table-bordered am-table-striped am-text-nowrap am-table-centered am-table-hover">
+                    <thead>
+                        <tr>
+                            <th>菜单ID</th>
+                            <th>上级ID</th>
+                            <th>名称</th>
+                            <th>请求地址</th>
+                            <th>层级关系</th>
+                            <th>类型</th>
+                            <th>ICON</th>
+                            <th>排序</th>
+                            <th>创建时间</th>
+                            <th>修改时间</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="lis : ${list.list}">
+                            <td th:text="${lis.menuId}"></td>
+                            <td th:text="${lis.parentId}"></td>
+                            <td th:text="${lis.name}"></td>
+                            <td th:text="${lis.url}"><a th:href="#" th:text="dfdf"/></td>
+                            <td th:text="${lis.perms}"></td>
+                            <td th:text="${lis.type}"></td>
+                            <td ><i th:class="${lis.icon}"/></td>
+                            <td th:text="${lis.orderNum}"></td>
+                            <td th:text="${#dates.format(lis.gmtCreate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                            <td th:text="${#dates.format(lis.gmtModified, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                            <td>
+                                <div class="tpl-table-black-operation">
+                                    <a th:onclick="'javascript:edit('+${lis.menuId}+')'">
+                                        <i class="am-icon-pencil"></i> 编辑
+                                    </a>
+                                    <a th:onclick="'javascript:remove('+${lis.menuId}+')'" class="tpl-table-black-operation-del">
+                                        <i class="am-icon-trash"></i> 删除
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                        <!-- more data -->
+                        </tbody>
+                    </table>
+                </div>
+                <ul class="am-pagination am-pagination-default">
+                    <li>
+                        <form th:action="@{/sys/menu}" th:method="post">
+                            <input type="text" name="parentId" th:value="${menuPage.parentId}" th:hidden="true"/>
+                            <input type="text" name="type" th:value="${menuPage.type}" th:hidden="true"/>
+                            <button type="submit" th:unless="${list.isFirstPage}" name="pageNum" class="am-btn am-btn-secondary" id="pageNum" th:value="1" th:text="第一页"></button>
+                        </form>
+                    </li>
+                    <li>
+                        <form th:action="@{/sys/menu}" th:method="post">
+                            <input type="text" name="parentId" th:value="${menuPage.parentId}" th:hidden="true"/>
+                            <input type="text" name="type" th:value="${menuPage.type}" th:hidden="true"/>
+                            <button th:unless="${list.isFirstPage}" type="submit" name="pageNum" class="am-btn am-btn-secondary" id="pageNum" th:value="${list.prePage}" th:text="上一页"></button>
+                        </form>
+                    </li>
+                    <li class="" th:each="num :${list.navigatepageNums}">
+                        <form th:action="@{/sys/menu}" th:method="post">
+                            <input type="text" name="parentId" th:value="${menuPage.parentId}" th:hidden="true"/>
+                            <input type="text" name="type" th:value="${menuPage.type}" th:hidden="true"/>
+                            <button type="submit" name="pageNum" class="am-btn am-btn-secondary" id="pageNum" th:value="${num}" th:text="${num}"></button>
+                        </form>
+                    </li>
+                    <li>
+                        <form th:action="@{/sys/menu}" th:method="post">
+                            <input type="text" name="parentId" th:value="${menuPage.parentId}" th:hidden="true"/>
+                            <input type="text" name="type" th:value="${menuPage.type}" th:hidden="true"/>
+                            <button type="submit" th:unless="${list.isLastPage}" name="pageNum" class="am-btn am-btn-secondary" id="pageNum" th:value="${list.nextPage}" th:text="下一页"></button>
+                        </form>
+                    </li>
+                    <li>
+                        <form th:action="@{/sys/menu}" th:method="post">
+                            <input type="text" name="parentId" th:value="${menuPage.parentId}" hidden="true"/>
+                            <input type="text" name="type" th:value="${menuPage.type}" hidden="true"/>
+                            <button type="submit" th:unless="${list.isLastPage}" name="pageNum" class="am-btn am-btn-secondary" id="pageNum" th:value="${list.nextPage}" th:text="最末页"></button>
+                        </form>
+                    </li>
+                    <li>
+                        <span class="fa-battery-0" th:text="'当前页数为'+${list.pageNum}+'页'"></span></li>
+                    <li>
+                        <span class="fa-battery-1" th:text="'当页记录有'+${list.size}+'条'"></span>
+                    </li>
+                    <li>
+                        <span class="fa-battery-2" th:text="'当页记录区间'+${list.startRow}+'-'+${list.endRow}+'条'"></span>
+                    </li>
+                    <li>
+                        <span class="fa-battery-3" th:text="'共'+${list.total}+'条记录'"></span>
+                    </li>
+                    <li>
+                        <span class="fa-battery-4" th:text="'共'+${list.pages}+'页'"></span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div th:include="/common/common_head :: footer"></div>
+</div>
+<script src="/js/auth/menujs.js"></script>
+</body>
+</html>
