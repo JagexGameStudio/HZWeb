@@ -9,7 +9,7 @@
 				<div class="widget-title am-fl"><span th:text="${'添加菜单【'+pId}+'】'"</div>
 			</div>
 			<div class="widget-body am-fr">
-				<form class="am-form" th:action="@{/}" th:method="post">
+				<form class="am-form" th:action="@{/sys/menu/save}" th:method="post">
 					<input id="parentId" name="parentId" type="hidden" th:value="${pId}" />
 					<fieldset>
 						<div class="am-form-group">

@@ -80,4 +80,26 @@ public class MenuController extends BaseController{
         }
     }
 
+    @PostMapping("/save")
+    @ResponseBody
+    public ReturnMessage save(Menu menu){
+        menu.setGmtCreate(new Date());
+        if(menuService.save(menu)>0){
+            return ReturnMessage.ok();
+        } else {
+            return ReturnMessage.error(1, "添加失败");
+        }
+    }
+
+    @PostMapping("/update")
+    @ResponseBody
+    public ReturnMessage update(Menu menu) {
+        menu.setGmtModified(new Date());
+        if (menuService.update(menu) > 0) {
+            return ReturnMessage.ok();
+        } else {
+            return ReturnMessage.error(1, "更新失败");
+        }
+    }
+
 }
